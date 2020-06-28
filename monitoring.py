@@ -1,15 +1,17 @@
 from datetime import datetime
 from .mail import log_into_SMTP_Server_and_send_email
 import requests
+import os
 
 STATE = 1
 
 def request_map():
     global STATE
+    URL = os.environ.get('URL')
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     print('REQUEST MAP: | {}'.format(dt_string))
-    response = requests.get('https://swebapi.demo.datexis.com/api/karte')
+    response = requests.get(URL)
     print('STATUS CODE: | {}'.format(response))
     if response.status_code != 200 and STATE == 1:
         '''

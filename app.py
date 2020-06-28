@@ -10,7 +10,7 @@ scheduler.add_job(monitoring.request_map, 'interval', seconds=5)
 
 @app.route('/')
 def hello_world():
-    return jsonify({'Json sagt' : 'Hallo I bims, der Json'})
+    return jsonify({'Json sagt': 'Hallo I bims, der Json'})
 
 
 @app.route('/start')

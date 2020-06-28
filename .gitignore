@@ -1,0 +1,5 @@
+.env
+*configMap.yaml
+venv
+__pycache__/
+.idea/

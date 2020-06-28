@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sweb-monitoring
+  labels:
+    app: sweb-monitoring
+    tier: api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sweb-monitoring
+        tier: api
+    spec:
+      containers:
+        - name: sweb-monitoring
+          image: registry.datexis.com/ksachs/sweb-monitoring:v20
+          ports:
+            - name: client-port
+              containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: sweb-monitoring-config
+          resources:
+            requests:
+              cpu: "1"
+              memory: "8Gi"
+            limits:
+              cpu: "4"
+              memory: "16Gi"
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: private-registry-auth
+  selector:
+    matchLabels:
+      app: sweb-monitoring
+      tier: api	

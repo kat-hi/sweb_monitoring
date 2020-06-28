@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sweb-monitoring-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+  - secretName: "sweb-monitoring-demo-tls"
+    hosts:
+    - "sweb.monitoring.demo.datexis.com"
+  rules:
+  - host: "sweb.monitoring.demo.datexis.com"
+    http:
+      paths:
+      - path:
+        backend:
+          serviceName: sweb-monitoring-service
+          servicePort: 5000
